@@ -1,13 +1,21 @@
 #ifndef SEARCH_H
 #define SEARCH_H
+
+//#include "config.h"
 #include "ilogger.h"
 #include "searchresult.h"
 #include "environmentoptions.h"
+#include "node_comparator.h"
+
 #include <list>
 #include <vector>
 #include <math.h>
 #include <limits>
 #include <chrono>
+#include <set>
+#include <unordered_map>
+
+bool NodeGComparator(const Node &first, const Node &second);
 
 class Search
 {
@@ -17,6 +25,13 @@ class Search
         SearchResult startSearch(ILogger *Logger, const Map &Map, const EnvironmentOptions &options);
 
     protected:
+
+        std::vector<Node> get_neighbours(Node node, const Map& map, const EnvironmentOptions &options);
+        double computeHeuristic(int i1, int j1, int i2, int j2, const EnvironmentOptions &options);
+        std::set<Node, bool(*)(const Node&, const Node&)> getFilteredOpen() const;
+
+        void makePrimaryPath(Node currentNode);
+        void makeSecondaryPath();
         //CODE HERE
 
         //Hint 1. You definetely need class variables for OPEN and CLOSE
@@ -33,8 +48,11 @@ class Search
         //and only then begin enhancement!
 
 
-        SearchResult                    sresult; //This will store the search result
-        std::list<Node>                 lppath, hppath; //
+        SearchResult                        sresult; //This will store the search result
+        std::list<Node>                     lppath, hppath; //
+        std::set<Node, NodePosComparator>   OPEN;
+        //std::set<Node>                      OPEN;
+        std::unordered_map<int, Node>       CLOSE;
 
         //CODE HERE to define other members of the class
 };
