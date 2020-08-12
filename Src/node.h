@@ -1,7 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <utility>
+#include "environmentoptions.h"
 
 //That's the data structure for storing a single search node.
 //You MUST store all the intermediate computations occuring during the search
@@ -15,12 +15,5 @@ struct Node
     bool operator== (const Node& new_node) const{
         return this->i == new_node.i && this->j == new_node.j;
     }
-    /*bool operator< (const Node& new_node) const{
-        if (F <= new_node.F) {
-            return true;
-        } else {
-            return false;
-        }
-    }*/
 };
 #endif

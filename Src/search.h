@@ -15,8 +15,6 @@
 #include <set>
 #include <unordered_map>
 
-bool NodeGComparator(const Node &first, const Node &second);
-
 class Search
 {
     public:
@@ -28,8 +26,9 @@ class Search
 
         std::vector<Node> get_neighbours(Node node, const Map& map, const EnvironmentOptions &options);
         double computeHeuristic(int i1, int j1, int i2, int j2, const EnvironmentOptions &options);
-        std::set<Node, bool(*)(const Node&, const Node&)> getFilteredOpen() const;
-
+        //Node FindMin(const EnvironmentOptions &options, std::set<Node, NodePosComparator>::iterator it)
+        Node FindMin(const EnvironmentOptions &options); 
+        //Node FindMin(const EnvironmentOptions &options);
         void makePrimaryPath(Node currentNode);
         void makeSecondaryPath();
         //CODE HERE
@@ -46,7 +45,6 @@ class Search
         //so think of the data structures that needed to be used, about the wrap-up classes (if needed)
         //Start with very simple (and ineffective) structures like list or vector and make it work first
         //and only then begin enhancement!
-
 
         SearchResult                        sresult; //This will store the search result
         std::list<Node>                     lppath, hppath; //
